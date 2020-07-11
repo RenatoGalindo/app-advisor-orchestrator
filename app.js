@@ -20,6 +20,8 @@ var express = require('express'); // app server
 var bodyParser = require('body-parser'); // parser for post requests
 var AssistantV2 = require('watson-developer-cloud/assistant/v2'); // watson sdk
 
+const service = require('./service');
+
 var app = express();
 
 // Bootstrap application settings
@@ -77,16 +79,30 @@ app.post('/api/message', function (req, res) {
     }
   };
 
-  // Send the input to the assistant service
-  assistant.message(payload, function (err, data) {
-    if (err) {
-      const status = (err.code  !== undefined && err.code > 0)? err.code : 500;
-      return res.status(status).json(err);
-    }
+ // Send the input to the assistant service
+ assistant.message(payload, function (err, data) {
+  if (err) {
+    const status = (err.code  !== undefined && err.code > 0)? err.code : 500;
+    return res.status(status).json(err);
+  }
 
-    return res.json(data);
-  });
+  
+ 
+  service.create(payload.input.text)
+  .then(data => {
+    console.log(data);
+     console.log('Nova pergunta criado com sucesso');
+  })
+  .catch(err => console.log('Criação de nova pergunta negada\n'+ err));
+
+      
+          
+  return res.json(data);
+
+
 });
+});
+
 
 app.get('/api/session', function (req, res) {
   assistant.createSession({

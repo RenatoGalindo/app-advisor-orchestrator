@@ -21,8 +21,11 @@ require('dotenv').config({silent: true});
 
 var server = require('./app');
 var port = process.env.PORT || 3000;
+const mongodb = require('./db');
 
 server.listen(port, function() {
   // eslint-disable-next-line
+  mongodb.connectMongo('mongodb+srv://chatbot:masterik61703@cluster0-wegmx.mongodb.net/chatbot');
+        
   console.log('Server running on port: %d', port);
 });
