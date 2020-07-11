@@ -1,5 +1,5 @@
 
-var mongoose = require('Mongoose');
+
 var model = require('../model/schema.js');
 
 
