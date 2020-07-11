@@ -25,7 +25,7 @@ const mongodb = require('./db');
 
 server.listen(port, function() {
   // eslint-disable-next-line
-  mongodb.connectMongo('mongodb+srv://chatbot:masterik61703@cluster0-wegmx.mongodb.net/chatbot');
+  mongodb.connectMongo('mongodb+srv://chatbot:masterik61703@cluster0-wegmx.mongodb.net/chatbot?ssl=true');
         
   console.log('Server running on port: %d', port);
 });
